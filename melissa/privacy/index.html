@@ -21,15 +21,15 @@ hr{border:0;border-top:1px solid #e0e0e0;margin:40px 0}
 <p>Contact: melissa-support.foster173@simplelogin.com</p>
 <p>Mélissa is a personal organizer. At the effective date it contains no ads, analytics or crash-reporting SDKs. If that changes, this policy will be updated before the change is released. Your data is stored on your device and is not sent to the developer&#x27;s servers. The only external connection is optional synchronization with Google Calendar, which you enable yourself.</p>
 <ul>
-<li><strong>On-device data:</strong> tasks, calendar events, habits, subscriptions, finance records, reminders and app settings are stored only in the app&#x27;s local database and settings.</li>
-<li><strong>Google Calendar (optional):</strong> sign-in goes through Google Play services. The app requests read and write access to Google Calendar and talks to the Google Calendar API directly over HTTPS. The access token is issued by Google Play services and is not stored by the app or sent to the developer.</li>
-<li><strong>Voice input:</strong> uses the Android system speech recognizer (SpeechRecognizer). The app does not store audio. Processing is done by your device&#x27;s speech service under its own terms.</li>
-<li><strong>Notifications:</strong> reminders, the Pomodoro timer and subscriptions use exact alarms, a boot receiver for rescheduling, and a foreground service with a notification while the Pomodoro timer runs. All local.</li>
+<li><strong>On-device data:</strong> tasks, calendar events, habits, subscriptions, finance records, reminders and app settings are stored only in the app&#x27;s local database and settings. If you connect Google Calendar, the email address of that Google account also stays on the device.</li>
+<li><strong>Google Calendar (optional):</strong> sign-in goes through Google Play services. The app requests read and write access to Google Calendar (<code>https://www.googleapis.com/auth/calendar</code>) and talks to the Google Calendar API directly over HTTPS. It sends the event title, description, date and time, time zone and recurrence rule, and loads events of your primary calendar for the past year and later changes. The access token is issued and stored by Google Play services; the app keeps only the account name and a sync marker on the device (excluded from backup) and sends nothing to the developer. Mélissa&#x27;s use of data received from Google APIs complies with the Google API Services User Data Policy, including the Limited Use requirements: the data is used only for calendar synchronization, is not shared with third parties, is not used for advertising and is not read by humans.</li>
+<li><strong>Voice input:</strong> uses the Android system speech recognizer (SpeechRecognizer). The app does not store audio and the developer does not receive it. Processing is done by your device&#x27;s speech service under its own terms; on most devices this is a Google service that may send audio to its servers.</li>
+<li><strong>Notifications:</strong> reminders, the Pomodoro timer and subscriptions use exact alarms, a boot receiver for rescheduling, and a foreground service with a notification while the Pomodoro timer runs. Exact alarms are optional: if you do not grant the permission, reminders are delivered through WorkManager and may be delayed. All local.</li>
 <li><strong>Export:</strong> CSV export is started by you and shared through the Android share sheet.</li>
 <li><strong>Backup:</strong> Android Auto Backup and device transfer may copy the app database and settings to your Google account. Google account data (account name and Calendar sync settings) is excluded. The developer has no access to backups.</li>
-<li><strong>Third parties:</strong> the developer does not sell or share data with third parties.</li>
+<li><strong>Third parties:</strong> the developer does not sell or share data with third parties. The feedback button opens your email app; you send the message yourself.</li>
 <li><strong>Security:</strong> HTTPS for Google Calendar traffic.</li>
-<li><strong>Your rights:</strong> uninstall the app or clear its data to delete everything. Disconnect Google Calendar in the app or revoke access in your Google account.</li>
+<li><strong>Your rights:</strong> uninstall the app or clear its data to delete everything. Stop synchronization in the app (events already saved on the device remain) and fully revoke access at https://myaccount.google.com/permissions.</li>
 <li><strong>Children:</strong> not directed at children under 13.</li>
 <li><strong>Changes:</strong> updated versions are published at the same link with a new effective date.</li>
 </ul>
@@ -56,32 +56,33 @@ hr{border:0;border-top:1px solid #e0e0e0;margin:40px 0}
 <li>абонементы, история занятий и напоминания о них;</li>
 <li>финансовые записи (операции, категории, правила регулярных платежей);</li>
 <li>настройки приложения (скрытые вкладки, режим темы, параметры Помодоро);</li>
-<li>адрес электронной почты, если вы его ввели в настройках.</li>
+<li>адрес электронной почты аккаунта Google, если вы подключили Google Календарь (он хранится только на устройстве).</li>
 </ul>
 <h2>3. Google Календарь (необязательно)</h2>
 <p>Если вы подключаете Google Календарь, приложение:</p>
 <ul>
 <li>запрашивает вход в ваш аккаунт Google через сервисы Google Play;</li>
-<li>получает доступ к календарю с правами чтения и записи (сейчас запрашивается полный доступ к Google Календарю);</li>
-<li>передаёт события напрямую в Google Calendar API и обратно.</li>
+<li>получает доступ к календарю с правами чтения и записи (сейчас запрашивается доступ к Google Календарю <code>https://www.googleapis.com/auth/calendar</code>);</li>
+<li>передаёт события напрямую в Google Calendar API и обратно: название, описание, дату и время, часовой пояс и правило повторения события; загружаются события основного календаря за последний год и последующие изменения.</li>
 </ul>
-<p>Токен доступа выдают сервисы Google Play. Приложение не сохраняет его на диске и не передаёт разработчику. Отключить синхронизацию и отозвать доступ можно в настройках приложения и в настройках аккаунта Google.</p>
+<p>Токен доступа выдают и хранят сервисы Google Play; приложение хранит на устройстве только имя аккаунта и служебный маркер синхронизации (он не входит в резервную копию) и не передаёт их разработчику. Отключить синхронизацию можно в настройках приложения: приложение перестанет обращаться к Google Календарю, события, уже сохранённые на устройстве, останутся. Чтобы полностью отозвать доступ, удалите его на странице https://myaccount.google.com/permissions.</p>
+<p>Использование Mélissa данных, полученных из Google API, соответствует Политике Google API Services User Data Policy, включая требования Limited Use: данные используются только для функции синхронизации календаря, не передаются третьим лицам, не используются для рекламы и не читаются людьми.</p>
 <h2>4. Голосовой ввод</h2>
-<p>Для голосового ввода задач приложение использует системное распознавание речи Android (SpeechRecognizer). Разрешение на запись звука (RECORD_AUDIO) запрашивается только для этой функции. Аудио приложение не сохраняет. Распознавание выполняет системный сервис распознавания речи вашего устройства, и его обработка регулируется условиями этого сервиса (на большинстве устройств это сервис Google).</p>
+<p>Для голосового ввода задач приложение использует системное распознавание речи Android (SpeechRecognizer). Разрешение на запись звука (RECORD_AUDIO) запрашивается только для этой функции. Аудио приложение не сохраняет и разработчик его не получает. Распознавание выполняет системный сервис распознавания речи вашего устройства, и его обработка регулируется условиями этого сервиса (на большинстве устройств это сервис Google, который может отправлять звук на свои серверы).</p>
 <h2>5. Уведомления и напоминания</h2>
-<p>Приложение показывает уведомления о задачах, таймере Помодоро, абонементах и напоминаниях. Для точной доставки напоминаний используются точные будильники Android (SCHEDULE_EXACT_ALARM), для восстановления напоминаний после перезагрузки — RECEIVE_BOOT_COMPLETED. Для таймера Помодоро используется фоновый сервис с уведомлением, пока таймер работает. Все эти механизмы работают локально.</p>
+<p>Приложение показывает уведомления о задачах, таймере Помодоро, абонементах и напоминаниях. Для точной доставки напоминаний используются точные будильники Android (SCHEDULE_EXACT_ALARM), для восстановления напоминаний после перезагрузки — RECEIVE_BOOT_COMPLETED. Для таймера Помодоро используется фоновый сервис с уведомлением, пока таймер работает. Разрешение на точные будильники необязательно: если вы его не выдадите, напоминания приходят через WorkManager и могут запаздывать. Все эти механизмы работают локально.</p>
 <h2>6. Экспорт данных</h2>
 <p>Экспорт финансов в CSV запускает пользователь. Файл создаётся на устройстве и передаётся через системное окно «Поделиться». Дальше файл передаёт уже сам пользователь.</p>
 <h2>7. Резервное копирование</h2>
 <p>Приложение разрешает системе резервное копирование и перенос данных (Auto Backup и перенос на новое устройство). В резервную копию входят база приложения и настройки. Данные Google-аккаунта (имя аккаунта и параметры синхронизации Календаря) в копию не входят. Резервные копии хранятся в вашем аккаунте Google, разработчик к ним доступа не имеет.</p>
 <h2>8. Передача данных третьим лицам</h2>
-<p>Разработчик не передаёт данные третьим лицам и не продаёт их. Данные уходят только в Google Календарь (если вы его подключили) и в системные сервисы Android, описанные выше.</p>
+<p>Разработчик не передаёт данные третьим лицам и не продаёт их. Данные уходят только в Google Календарь (если вы его подключили) и в системные сервисы Android, описанные выше. Кнопка обратной связи открывает ваш почтовый клиент; письмо отправляете вы сами.</p>
 <h2>9. Безопасность</h2>
 <p>Обмен с Google Календарём идёт по HTTPS. Данные на устройстве защищены средствами Android (шифрование на уровне устройства, если оно включено в настройках телефона).</p>
 <h2>10. Ваши права и удаление данных</h2>
 <ul>
 <li>Чтобы удалить все данные приложения, удалите приложение или очистите его данные в настройках Android.</li>
-<li>Чтобы отозвать доступ к Google Календарю, отключите синхронизацию в приложении или удалите доступ в настройках аккаунта Google.</li>
+<li>Чтобы остановить синхронизацию, отключите её в приложении (события, уже сохранённые на устройстве, останутся). Чтобы полностью отозвать доступ к Google Календарю, удалите его на странице https://myaccount.google.com/permissions.</li>
 <li>Чтобы удалить резервные копии, удалите их в настройках Google (резервное копирование).</li>
 </ul>
 <h2>11. Дети</h2>
